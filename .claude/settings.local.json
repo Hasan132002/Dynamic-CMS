@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"c:\\\\xampp\\\\htdocs\\\\educve-portal\\\\resources\\\\views\\\\partials\\\\credit-transfer\\\\faq.blade.php\")",
+      "Bash(del \"c:\\\\xampp\\\\htdocs\\\\educve-portal\\\\resources\\\\views\\\\partials\\\\credit-transfer\\\\services.blade.php\")",
+      "Bash(curl:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(php artisan view:clear:*)",
+      "Bash(php artisan cache:clear:*)"
+    ]
+  }
+}

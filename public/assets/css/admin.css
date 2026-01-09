@@ -1,0 +1,1664 @@
+/**
+ * EduCVE Admin Panel Styles
+ * WordPress-like Modern Admin Theme
+ */
+
+/* ========================================
+   CSS Variables / Root - WordPress Style Colors
+======================================== */
+:root {
+    /* Primary red/maroon scheme */
+    --primary-color: #b30909;
+    --primary-dark: #8a0707;
+    --primary-light: #d43d3d;
+    --primary-hover: #7a0606;
+
+    /* Secondary colors */
+    --secondary-color: #1d2327;
+    --secondary-light: #2c3338;
+
+    /* Status colors */
+    --success-color: #00a32a;
+    --success-light: #d6ffd6;
+    --danger-color: #d63638;
+    --danger-light: #ffebe9;
+    --warning-color: #dba617;
+    --warning-light: #fff8e5;
+    --info-color: #d43d3d;
+    --info-light: #fff5f5;
+
+    /* Backgrounds */
+    --light-bg: #f0f0f1;
+    --dark-bg: #1d2327;
+    --white: #ffffff;
+    --body-bg: #f0f0f1;
+
+    /* Sidebar */
+    --sidebar-bg: #1d2327;
+    --sidebar-text: #f0f0f1;
+    --sidebar-hover: #2c3338;
+    --sidebar-active: #b30909;
+    --sidebar-width: 260px;
+
+    /* Header */
+    --header-height: 60px;
+    --header-bg: #1d2327;
+
+    /* Cards & Shadows */
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --hover-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    --card-radius: 8px;
+
+    /* Borders */
+    --border-color: #c3c4c7;
+    --border-light: #e2e4e7;
+
+    /* Text */
+    --heading-color: #1d2327;
+    --text-color: #50575e;
+    --text-light: #787c82;
+}
+
+/* ========================================
+   Reset & Base
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.admin-body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    background: var(--body-bg);
+    min-height: 100vh;
+    color: var(--text-color);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* ========================================
+   Sidebar Styles - WordPress Style
+======================================== */
+.admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--sidebar-bg);
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: all 0.2s ease;
+}
+
+.sidebar-header {
+    padding: 12px 12px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+}
+
+.sidebar-logo {
+    width: 36px;
+    height: 36px;
+    background: var(--primary-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.sidebar-brand {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sidebar-brand span {
+    color: var(--primary-light);
+}
+
+.sidebar-menu {
+    padding: 8px 0;
+}
+
+.menu-category {
+    padding: 8px 12px 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.menu-item  {
+    display: flex;
+    padding: 10px 12px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border-left: 4px solid transparent;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    margin: 0;
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.85;
+}
+
+.menu-item:hover {
+    background: var(--sidebar-hover);
+    color: var(--primary-light);
+}
+
+.menu-item.active {
+    background: var(--sidebar-active);
+    color: white;
+    border-left-color: var(--primary-light);
+}
+
+.menu-item.active i {
+    color: white;
+    opacity: 1;
+}
+
+.menu-badge {
+    margin-left: auto;
+    background: var(--danger-color);
+    color: white;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Sidebar Scrollbar */
+.admin-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* ========================================
+   Main Content Area
+======================================== */
+.admin-main {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+}
+
+/* ========================================
+   Top Header - WordPress Admin Bar Style
+======================================== */
+.admin-header {
+    height: var(--header-height);
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+}
+
+.header-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--light-bg);
+    padding: 8px 14px;
+    border-radius: 4px;
+    width: 280px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.header-search:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+    background: var(--white);
+}
+
+.header-search input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 13px;
+    color: var(--text-color);
+}
+
+.header-search input::placeholder {
+    color: var(--text-light);
+}
+
+.header-search i {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-btn:hover {
+    background: var(--light-bg);
+    color: var(--primary-color);
+}
+
+.header-btn .badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: var(--danger-color);
+    color: white;
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    min-width: 16px;
+    text-align: center;
+}
+
+.user-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    margin-left: 8px;
+    border-left: 1px solid var(--border-color);
+    padding-left: 20px;
+}
+
+.user-dropdown:hover {
+    background: var(--light-bg);
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.user-info {
+    text-align: left;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--heading-color);
+    line-height: 1.3;
+}
+
+.user-role {
+    font-size: 11px;
+    color: var(--text-light);
+}
+
+/* ========================================
+   Content Area
+======================================== */
+.admin-content {
+    padding: 20px;
+    max-width: 100%;
+}
+
+/* ========================================
+   Page Header - WordPress Style
+======================================== */
+.page-header {
+    background: var(--white);
+    color: var(--heading-color);
+    padding: 15px 0 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--heading-color);
+    line-height: 1.3;
+}
+
+.page-header h1 i {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.page-header p {
+    margin: 5px 0 0 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* ========================================
+   Cards - WordPress Style
+======================================== */
+.admin-card {
+    background: var(--white);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-light);
+    transition: all 0.2s ease;
+    height: 100%;
+}
+
+.admin-card:hover {
+    box-shadow: var(--hover-shadow);
+    border-color: var(--border-color);
+}
+
+/* ========================================
+   Alerts
+======================================== */
+.alert-custom {
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+    animation: slideInDown 0.5s ease;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border: none;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border: none;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+    color: #856404;
+    border: none;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+    border: none;
+}
+
+/* ========================================
+   Loading Overlay
+======================================== */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-overlay.active {
+    display: flex;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========================================
+   Buttons - WordPress Style
+======================================== */
+.btn-primary-custom {
+    background: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-dark);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 13px;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-primary-custom:hover {
+    background: var(--primary-dark);
+    color: white;
+    border-color: var(--primary-hover);
+}
+
+.btn-save {
+    padding: 8px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-dark);
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-save:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-hover);
+}
+
+.btn-save i {
+    margin-right: 4px;
+}
+
+/* Secondary Button */
+.btn-secondary-custom {
+    background: var(--light-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 13px;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.btn-secondary-custom:hover {
+    background: var(--border-light);
+    border-color: var(--text-light);
+}
+
+/* ========================================
+   Form Elements - WordPress Style
+======================================== */
+.form-control-custom {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 13px;
+    transition: all 0.15s ease;
+    background: var(--white);
+    color: var(--text-color);
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+/* Labels */
+label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* WordPress style input focus */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+    outline: none;
+}
+
+/* ========================================
+   Toggle Switch
+======================================== */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: var(--success-color);
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+}
+
+/* ========================================
+   Stats Cards - WordPress Style
+======================================== */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--white);
+    color: var(--heading-color);
+    padding: 16px 20px;
+    border-radius: var(--card-radius);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--primary-color);
+    box-shadow: var(--card-shadow);
+}
+
+.stat-card.success {
+    border-left-color: var(--success-color);
+}
+
+.stat-card.success .stat-value {
+    color: var(--success-color);
+}
+
+.stat-card.warning {
+    border-left-color: var(--warning-color);
+}
+
+.stat-card.warning .stat-value {
+    color: var(--warning-color);
+}
+
+.stat-card.info {
+    border-left-color: var(--info-color);
+}
+
+.stat-card.info .stat-value {
+    color: var(--info-color);
+}
+
+.stat-card .stat-value {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--primary-color);
+}
+
+.stat-card .stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========================================
+   Table Styles - WordPress Style
+======================================== */
+.table-card {
+    background: var(--white);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+}
+
+.admin-table,
+.pages-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.admin-table thead,
+.pages-table thead {
+    background: var(--light-bg);
+}
+
+.admin-table th,
+.pages-table th {
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--heading-color);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table tbody tr,
+.pages-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.15s ease;
+}
+
+.admin-table tbody tr:hover,
+.pages-table tbody tr:hover {
+    background: var(--light-bg);
+}
+
+.admin-table tbody tr:last-child,
+.pages-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.admin-table td,
+.pages-table td {
+    padding: 12px 15px;
+    font-size: 13px;
+    color: var(--text-color);
+    vertical-align: middle;
+}
+
+/* ========================================
+   Status Badges - WordPress Style
+======================================== */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.status-badge.live {
+    background: var(--success-light);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.status-badge.offline {
+    background: var(--danger-light);
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.status-badge i {
+    font-size: 7px;
+}
+
+/* Page icon and info styling */
+.page-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.page-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-details h6 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+.page-url {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: var(--light-bg);
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text-light);
+    font-family: monospace;
+}
+
+.page-url i {
+    color: var(--primary-color);
+    font-size: 11px;
+}
+
+/* ========================================
+   Tabs - WordPress Style
+======================================== */
+.tabs-nav {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 0;
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background: transparent;
+    border-radius: 4px 4px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-bottom: -1px;
+    position: relative;
+}
+
+.tab-btn:hover {
+    background: var(--light-bg);
+    color: var(--primary-dark);
+}
+
+.tab-btn.active {
+    background: var(--white);
+    color: var(--heading-color);
+    border-color: var(--border-color);
+    border-bottom-color: var(--white);
+    font-weight: 600;
+}
+
+/* Custom tab content - for non-Bootstrap tabs only */
+.custom-tab-content {
+    display: none;
+    background: var(--white);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--card-radius) var(--card-radius);
+}
+
+.custom-tab-content.active {
+    display: block;
+}
+
+/* Bootstrap tab content styling override */
+.tab-content {
+    background: var(--white);
+}
+
+.tab-content > .tab-pane {
+    padding: 20px;
+}
+
+/* ========================================
+   Empty State
+======================================== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.empty-state h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+/* ========================================
+   Filter Chips - WordPress Style
+======================================== */
+.filter-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-chip {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.filter-chip:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--info-light);
+}
+
+.filter-chip.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* ========================================
+   Search Box - WordPress Style
+======================================== */
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    padding: 8px 35px 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 100%;
+    font-size: 13px;
+    transition: all 0.15s ease;
+    background: var(--white);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.search-box i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* ========================================
+   Section Cards - WordPress Style
+======================================== */
+.settings-section {
+    background: var(--white);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-light);
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.section-header i {
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.section-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--heading-color);
+}
+
+/* ========================================
+   Controls Section - WordPress Style
+======================================== */
+.controls-section {
+    background: var(--white);
+    padding: 15px 20px;
+    border-radius: var(--card-radius);
+    border: 1px solid var(--border-light);
+    margin-bottom: 20px;
+}
+
+/* ========================================
+   Mobile Toggle
+======================================== */
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--secondary-color);
+}
+
+/* ========================================
+   Media Library Specific Styles
+======================================== */
+.upload-section {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 25px;
+}
+
+.upload-zone {
+    border: 3px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 50px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+    border-color: var(--primary-color);
+    background: rgba(179, 9, 9, 0.02);
+}
+
+.upload-zone input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-zone i {
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.upload-zone h4 {
+    margin: 0 0 10px 0;
+    color: var(--secondary-color);
+}
+
+.upload-zone p {
+    margin: 0;
+    color: #999;
+    font-size: 14px;
+}
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.media-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.media-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+.media-card.selected {
+    border: 3px solid var(--primary-color);
+}
+
+.media-card.selected::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.media-preview {
+    height: 150px;
+    background: var(--light-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.media-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.media-preview .file-icon {
+    font-size: 48px;
+    color: var(--primary-color);
+}
+
+.media-info {
+    padding: 15px;
+}
+
+.media-info h6 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--secondary-color);
+}
+
+.media-info p {
+    font-size: 11px;
+    color: #999;
+    margin: 0;
+}
+
+.media-actions {
+    display: flex;
+    gap: 10px;
+    padding: 0 15px 15px;
+}
+
+.media-actions button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-copy {
+    background: var(--light-bg);
+    color: var(--secondary-color);
+}
+
+.btn-copy:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-delete {
+    background: #fee;
+    color: var(--danger-color);
+}
+
+.btn-delete:hover {
+    background: var(--danger-color);
+    color: white;
+}
+
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.filter-bar h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.filter-bar span {
+    color: #999;
+    font-size: 14px;
+}
+
+/* ========================================
+   Menu Builder Styles
+======================================== */
+.menu-builder-container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 25px;
+}
+
+.menu-sidebar {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    height: fit-content;
+}
+
+.menu-canvas {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    min-height: 600px;
+    max-height: 800px;
+    overflow-y: auto;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.menu-canvas.drag-over {
+    background: rgba(179, 9, 9, 0.02) !important;
+    border: 2px dashed var(--primary-color) !important;
+}
+
+.menu-drop-zone {
+    min-height: 500px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.page-list-item {
+    background: var(--light-bg);
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: grab;
+    border: 2px dashed #ddd;
+    transition: all 0.3s ease;
+}
+
+.page-list-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(179, 9, 9, 0.05);
+}
+
+.page-list-item:active {
+    cursor: grabbing;
+}
+
+.menu-item {
+    /* background: white; */
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(179, 9, 9, 0.1);
+}
+
+.menu-item.dragging {
+    opacity: 0.5;
+}
+
+.menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu-item-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.menu-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+}
+
+.menu-item-title-input,
+.menu-item-url-input {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: var(--light-bg);
+}
+
+.menu-item-title-input {
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+.menu-item-url-input {
+    font-size: 12px;
+    color: #666;
+}
+
+.menu-item-title-input:focus,
+.menu-item-url-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+}
+
+.submenu-drop-zone {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.submenu-placeholder {
+    text-align: center;
+    padding: 8px;
+    color: #999;
+    font-size: 12px;
+    border: 2px dashed #ddd;
+    border-radius: 6px;
+    background: var(--light-bg);
+}
+
+.menu-item-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.menu-item-actions button {
+    padding: 6px 10px;
+    border: none;
+    background: var(--light-bg);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-item-actions button:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.submenu {
+    margin-left: 30px;
+    margin-top: 10px;
+    padding-left: 20px;
+    border-left: 3px solid var(--border-color);
+}
+
+.menu-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.menu-empty-state i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+/* ========================================
+   Logo Manager Styles
+======================================== */
+.logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.logo-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.logo-card h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.logo-preview {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: var(--light-bg);
+    overflow: hidden;
+}
+
+.logo-preview img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+.logo-preview .placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+.file-upload {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload-btn {
+    display: block;
+    padding: 12px 20px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.file-upload:hover .file-upload-btn {
+    background: var(--primary-dark);
+}
+
+/* ========================================
+   Footer Manager Styles
+======================================== */
+.footer-sections {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.footer-section-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+}
+
+.footer-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.footer-section-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+.section-title-input {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.menu-list {
+    min-height: 200px;
+}
+
+.menu-item-input {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+.btn-add {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    background: #a50000;
+    transform: translateY(-2px);
+}
+
+.btn-save-all {
+    background: linear-gradient(135deg, var(--success-color) 0%, #1e7e34 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    display: block;
+    margin: 30px auto 0;
+}
+
+.btn-save-all:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(40, 167, 69, 0.3);
+}
+
+/* ========================================
+   Responsive Styles
+======================================== */
+@media (max-width: 992px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .admin-sidebar.active {
+        transform: translateX(0);
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .header-search {
+        width: 200px;
+    }
+
+    .menu-builder-container {
+        grid-template-columns: 1fr;
+    }
+
+    .logo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-sections {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-chips {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 10px;
+    }
+
+    .media-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-search {
+        display: none;
+    }
+
+    .admin-content {
+        padding: 15px;
+    }
+
+    .page-header {
+        padding: 20px;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+}

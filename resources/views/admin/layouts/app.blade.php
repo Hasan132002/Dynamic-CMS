@@ -66,6 +66,10 @@
                 <i class="fas fa-swatchbook"></i>
                 <span>Theme Manager</span>
             </a>
+            <a href="/admin/theme-import" class="menu-item {{ request()->is('admin/theme-import*') ? 'active' : '' }}">
+                <i class="fas fa-file-import"></i>
+                <span>Theme Import</span>
+            </a>
             <a href="/admin/appearance" class="menu-item {{ request()->is('admin/appearance*') ? 'active' : '' }}">
                 <i class="fas fa-palette"></i>
                 <span>Theme Settings</span>

@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\MediaLibraryController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\PageBuilderController;
+use App\Http\Controllers\Admin\ThemeImportController;
 use App\Http\Controllers\CustomPageController;
 
 
@@ -116,6 +117,15 @@ Route::prefix('admin')->group(function () {
     Route::post('/theme-manager/assets/{slug}', [ThemeController::class, 'updateAssets'])->name('admin.themes.assets');
     Route::delete('/theme-manager/{slug}', [ThemeController::class, 'destroy'])->name('admin.themes.destroy');
     Route::get('/theme-manager/preview/{slug}', [ThemeController::class, 'preview'])->name('admin.themes.preview');
+
+    // Theme Import Routes
+    Route::get('/theme-import', [ThemeImportController::class, 'index'])->name('admin.theme-import');
+    Route::post('/theme-import', [ThemeImportController::class, 'import'])->name('admin.theme-import.import');
+    Route::get('/theme-import/docs', [ThemeImportController::class, 'downloadDocs'])->name('admin.theme-import.docs');
+    Route::get('/theme-import/{slug}', [ThemeImportController::class, 'show'])->name('admin.theme-import.show');
+    Route::delete('/theme-import/{slug}', [ThemeImportController::class, 'destroy'])->name('admin.theme-import.destroy');
+    Route::post('/theme-import/{slug}/sample-pages', [ThemeImportController::class, 'importSamplePages'])->name('admin.theme-import.sample-pages');
+    Route::get('/theme-import/{slug}/sections', [ThemeImportController::class, 'getSections'])->name('admin.theme-import.sections');
 
     // Activity Log Routes
     Route::get('/activity-log', [ActivityLogController::class, 'index'])->name('admin.activity-log');

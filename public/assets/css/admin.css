@@ -167,7 +167,7 @@ body.admin-body {
 
 .menu-item.active {
     background: var(--sidebar-active);
-    color: white;
+    /* color: white; */
     border-left-color: var(--primary-light);
 }
 

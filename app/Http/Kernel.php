@@ -45,8 +45,8 @@ class Kernel extends HttpKernel
         ],
     ];
     protected $routeMiddleware = [
-    // ...
         'page.status' => \App\Http\Middleware\CheckPageStatus::class,
+        'log.activity' => \App\Http\Middleware\LogActivity::class,
     ];
 
 

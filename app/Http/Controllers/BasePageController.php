@@ -5,9 +5,46 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use App\Services\NavigationResolver;
 use App\Services\BrandResolver;
+use App\Services\ThemeService;
 
 abstract class BasePageController extends Controller
 {
+    protected ?array $activeTheme = null;
+
+    /**
+     * Get the active theme configuration
+     */
+    protected function getActiveTheme(): array
+    {
+        if ($this->activeTheme === null) {
+            $themeService = app(ThemeService::class);
+            $this->activeTheme = $themeService->getActiveTheme();
+        }
+        return $this->activeTheme;
+    }
+
+    /**
+     * Get theme versions (home, header, footer)
+     */
+    protected function getThemeVersions(): array
+    {
+        $theme = $this->getActiveTheme();
+        return [
+            'home' => $theme['home_version'] ?? 'home-v1',
+            'header' => $theme['header_version'] ?? 'header-v1',
+            'footer' => $theme['footer_version'] ?? 'footer-v1',
+        ];
+    }
+
+    /**
+     * Get theme assets (brand, colors, fonts, social)
+     */
+    protected function getThemeAssets(): array
+    {
+        $themeService = app(ThemeService::class);
+        return $themeService->getThemeAssets();
+    }
+
     /**
      * Load all global JSONs (single source of truth)
      */
@@ -22,6 +59,7 @@ abstract class BasePageController extends Controller
             'navigation'    => json_decode(@file_get_contents($basePath . 'global-navigation.json'), true) ?? [],
             'text'          => json_decode(@file_get_contents($basePath . 'global-text.json'), true) ?? [],
             'global_images' => json_decode(@file_get_contents($basePath . 'global-images.json'), true) ?? [],
+            'seo'           => json_decode(@file_get_contents($basePath . 'global-seo.json'), true) ?? [],
         ];
 
         // 🔑 PHASE-04 CORE: DB-based navigation filtering
@@ -29,6 +67,11 @@ abstract class BasePageController extends Controller
             $globals['navigation'] =
                 NavigationResolver::resolve($globals['navigation']);
         }
+
+        // Add active theme data
+        $globals['theme'] = $this->getActiveTheme();
+        $globals['themeVersions'] = $this->getThemeVersions();
+        $globals['themeAssets'] = $this->getThemeAssets();
 
         return $globals;
     }
@@ -183,6 +226,12 @@ abstract class BasePageController extends Controller
                 'globalContact' => $globalContact,
                 'header'        => $header,
                 'footer'        => $footer,
+                // Theme data
+                'theme'         => $globals['theme'] ?? [],
+                'themeVersions' => $globals['themeVersions'] ?? [],
+                'themeAssets'   => $globals['themeAssets'] ?? [],
+                // SEO data
+                'seo'           => $globals['seo'] ?? [],
             ],
             $pageContent
         ));

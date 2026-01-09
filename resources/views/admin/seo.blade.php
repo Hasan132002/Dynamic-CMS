@@ -100,24 +100,36 @@
         box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3);
     }
 
-    .toggle-switch {
+    /* SEO Toggle Switch - Override admin.css */
+    .seo-toggle-wrapper {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
 
-    .toggle-switch input[type="checkbox"] {
+    .seo-toggle-wrapper .seo-toggle {
+        position: relative;
+        width: 50px;
+        height: 26px;
+        flex-shrink: 0;
+    }
+
+    .seo-toggle-wrapper .seo-toggle input[type="checkbox"] {
         width: 50px;
         height: 26px;
         appearance: none;
+        -webkit-appearance: none;
         background: #ddd;
         border-radius: 15px;
         position: relative;
         cursor: pointer;
         transition: all 0.3s ease;
+        margin: 0;
+        padding: 0;
+        opacity: 1;
     }
 
-    .toggle-switch input[type="checkbox"]::before {
+    .seo-toggle-wrapper .seo-toggle input[type="checkbox"]::before {
         content: '';
         position: absolute;
         width: 20px;
@@ -127,14 +139,34 @@
         top: 3px;
         left: 3px;
         transition: all 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
-    .toggle-switch input[type="checkbox"]:checked {
-        background: var(--success-color);
+    .seo-toggle-wrapper .seo-toggle input[type="checkbox"]:checked {
+        background: var(--success-color, #28a745);
     }
 
-    .toggle-switch input[type="checkbox"]:checked::before {
+    .seo-toggle-wrapper .seo-toggle input[type="checkbox"]:checked::before {
         left: 27px;
+    }
+
+    .seo-toggle-wrapper .toggle-label {
+        font-weight: 500;
+        color: var(--secondary-color);
+        font-size: 14px;
+    }
+
+    /* Robot Settings Grid */
+    .robot-settings-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .robot-settings-row {
+            grid-template-columns: 1fr;
+        }
     }
 
     .seo-preview {
@@ -229,26 +261,26 @@
                 <h3>Robot Settings</h3>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="toggle-switch">
+            <div class="robot-settings-row">
+                <div class="form-group">
+                    <div class="seo-toggle-wrapper">
+                        <div class="seo-toggle">
                             <input type="checkbox" name="robots_index"
                                    {{ ($seo['robots']['index'] ?? true) ? 'checked' : '' }}>
-                            <span>Allow Search Engine Indexing</span>
-                        </label>
-                        <small>Allow search engines to index your site</small>
+                        </div>
+                        <span class="toggle-label">Allow Search Engine Indexing</span>
                     </div>
+                    <small>Allow search engines to index your site</small>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="toggle-switch">
+                <div class="form-group">
+                    <div class="seo-toggle-wrapper">
+                        <div class="seo-toggle">
                             <input type="checkbox" name="robots_follow"
                                    {{ ($seo['robots']['follow'] ?? true) ? 'checked' : '' }}>
-                            <span>Allow Link Following</span>
-                        </label>
-                        <small>Allow search engines to follow links on your site</small>
+                        </div>
+                        <span class="toggle-label">Allow Link Following</span>
                     </div>
+                    <small>Allow search engines to follow links on your site</small>
                 </div>
             </div>
         </div>

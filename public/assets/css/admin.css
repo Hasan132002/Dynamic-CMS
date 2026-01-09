@@ -1594,9 +1594,13 @@ select:focus {
 /* ========================================
    Responsive Styles
 ======================================== */
+
+/* Tablet and smaller desktops */
 @media (max-width: 992px) {
+    /* Sidebar - Off-canvas on tablet */
     .admin-sidebar {
         transform: translateX(-100%);
+        box-shadow: 4px 0 15px rgba(0,0,0,0.2);
     }
 
     .admin-sidebar.active {
@@ -1608,11 +1612,51 @@ select:focus {
     }
 
     .sidebar-toggle {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        transition: all 0.15s ease;
+    }
+
+    .sidebar-toggle:hover {
+        background: var(--light-bg);
+    }
+
+    /* Sidebar overlay when open */
+    body.sidebar-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
     }
 
     .header-search {
         width: 200px;
+    }
+
+    /* Header actions - compact */
+    .header-actions {
+        gap: 4px;
+    }
+
+    .user-dropdown {
+        padding: 6px 10px;
+        padding-left: 12px;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .user-dropdown i.fa-chevron-down {
+        display: none;
     }
 
     .menu-builder-container {
@@ -1628,37 +1672,316 @@ select:focus {
     }
 }
 
+/* Tablets - Portrait */
 @media (max-width: 768px) {
+    /* Header */
+    .admin-header {
+        padding: 0 15px;
+        height: 56px;
+    }
+
+    .header-search {
+        width: 160px;
+        padding: 6px 12px;
+    }
+
+    .header-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    /* Content */
+    .admin-content {
+        padding: 15px;
+    }
+
+    .page-header {
+        padding: 15px 0;
+        margin-bottom: 15px;
+    }
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+    .page-header h1 i {
+        display: none;
+    }
+
+    /* Stats and Grids */
     .stats-cards {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 12px 15px;
+    }
+
+    .stat-card .stat-value {
+        font-size: 22px;
     }
 
     .filter-chips {
         overflow-x: auto;
         flex-wrap: nowrap;
         padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .media-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 15px;
     }
+
+    /* Settings sections */
+    .settings-section {
+        padding: 15px;
+    }
+
+    .section-header {
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+    }
+
+    .section-header i {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .section-header h3 {
+        font-size: 13px;
+    }
+
+    /* Tables - horizontal scroll */
+    .table-card {
+        overflow-x: auto;
+    }
+
+    .admin-table,
+    .pages-table {
+        min-width: 600px;
+    }
+
+    /* Form controls */
+    .form-control-custom {
+        padding: 10px 12px;
+    }
 }
 
+/* Mobile Phones */
 @media (max-width: 576px) {
+    /* Header - Mobile */
+    .admin-header {
+        padding: 0 12px;
+        height: 52px;
+    }
+
     .header-search {
         display: none;
     }
 
+    .sidebar-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .header-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .header-btn .badge {
+        font-size: 8px;
+        padding: 1px 4px;
+        min-width: 14px;
+    }
+
+    .user-dropdown {
+        padding: 4px 8px;
+        margin-left: 4px;
+        padding-left: 8px;
+        border-left: none;
+    }
+
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    /* Content - Mobile */
     .admin-content {
-        padding: 15px;
+        padding: 12px;
     }
 
     .page-header {
-        padding: 20px;
+        padding: 12px 0;
+        margin-bottom: 12px;
     }
 
     .page-header h1 {
-        font-size: 22px;
+        font-size: 18px;
+    }
+
+    .page-header p {
+        font-size: 12px;
+    }
+
+    /* Stats - single column on small phones */
+    .stats-cards {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-card .stat-value {
+        font-size: 24px;
+    }
+
+    .stat-card .stat-label {
+        font-size: 11px;
+    }
+
+    /* Settings sections - compact */
+    .settings-section {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .section-header {
+        gap: 8px;
+    }
+
+    .section-header h3 {
+        font-size: 12px;
+    }
+
+    /* Form groups */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group small {
+        font-size: 11px;
+    }
+
+    /* Buttons */
+    .btn-save {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+    }
+
+    .btn-primary-custom,
+    .btn-secondary-custom {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    /* Tabs */
+    .tabs-nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+    }
+
+    .tab-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    /* Cards */
+    .admin-card {
+        padding: 15px;
+    }
+
+    /* Media Library */
+    .media-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .media-preview {
+        height: 100px;
+    }
+
+    .media-info {
+        padding: 10px;
+    }
+
+    .media-info h6 {
+        font-size: 11px;
+    }
+
+    .media-actions {
+        padding: 0 10px 10px;
+        gap: 6px;
+    }
+
+    .media-actions button {
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    /* Upload Zone */
+    .upload-zone {
+        padding: 30px 20px;
+    }
+
+    .upload-zone i {
+        font-size: 36px;
+    }
+
+    .upload-zone h4 {
+        font-size: 16px;
+    }
+
+    /* Logo Manager */
+    .logo-card {
+        padding: 20px;
+    }
+
+    .logo-preview {
+        height: 120px;
+    }
+
+    /* Footer Manager */
+    .footer-section-card {
+        padding: 20px;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+    .admin-header {
+        padding: 0 10px;
+    }
+
+    .admin-content {
+        padding: 10px;
+    }
+
+    .page-header h1 {
+        font-size: 16px;
+    }
+
+    .settings-section {
+        padding: 10px;
+    }
+
+    .media-grid {
+        grid-template-columns: 1fr;
     }
 }

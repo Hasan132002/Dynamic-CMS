@@ -38,6 +38,10 @@
             </a>
 
             <div class="menu-category">Content Management</div>
+            <a href="/admin/page-builder" class="menu-item {{ request()->is('admin/page-builder*') ? 'active' : '' }}">
+                <i class="fas fa-layer-group"></i>
+                <span>Page Builder</span>
+            </a>
             <a href="/admin/content-manager" class="menu-item {{ request()->is('admin/content-manager*') ? 'active' : '' }}">
                 <i class="fas fa-edit"></i>
                 <span>Content Manager</span>
@@ -58,6 +62,10 @@
             </a>
 
             <div class="menu-category">Appearance</div>
+            <a href="/admin/theme-manager" class="menu-item {{ request()->is('admin/theme-manager*') ? 'active' : '' }}">
+                <i class="fas fa-swatchbook"></i>
+                <span>Theme Manager</span>
+            </a>
             <a href="/admin/appearance" class="menu-item {{ request()->is('admin/appearance*') ? 'active' : '' }}">
                 <i class="fas fa-palette"></i>
                 <span>Theme Settings</span>
@@ -81,6 +89,10 @@
             <a href="/admin/seo" class="menu-item {{ request()->is('admin/seo*') ? 'active' : '' }}">
                 <i class="fas fa-search"></i>
                 <span>SEO Settings</span>
+            </a>
+            <a href="/admin/activity-log" class="menu-item {{ request()->is('admin/activity-log*') ? 'active' : '' }}">
+                <i class="fas fa-history"></i>
+                <span>Activity Log</span>
             </a>
 
             <div class="menu-category">Quick Links</div>
@@ -147,17 +159,32 @@
 
     <script>
         function toggleSidebar() {
-            document.getElementById('adminSidebar').classList.toggle('active');
+            const sidebar = document.getElementById('adminSidebar');
+            const body = document.body;
+            sidebar.classList.toggle('active');
+            body.classList.toggle('sidebar-open');
         }
 
         // Close sidebar on mobile when clicking outside
         document.addEventListener('click', function(e) {
             const sidebar = document.getElementById('adminSidebar');
             const toggle = document.querySelector('.sidebar-toggle');
+            const body = document.body;
             if (window.innerWidth <= 992) {
                 if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
                     sidebar.classList.remove('active');
+                    body.classList.remove('sidebar-open');
                 }
+            }
+        });
+
+        // Close sidebar on window resize if open
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                const sidebar = document.getElementById('adminSidebar');
+                const body = document.body;
+                sidebar.classList.remove('active');
+                body.classList.remove('sidebar-open');
             }
         });
 

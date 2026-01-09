@@ -37,6 +37,10 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\LogoManagerController;
 use App\Http\Controllers\Admin\MediaLibraryController;
+use App\Http\Controllers\Admin\ThemeController;
+use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\PageBuilderController;
+use App\Http\Controllers\CustomPageController;
 
 
 
@@ -84,6 +88,7 @@ Route::prefix('admin')->group(function () {
 
     // Media Library
     Route::get('/media-library', [MediaLibraryController::class, 'index'])->name('admin.media-library');
+    Route::get('/media-library/json', [MediaLibraryController::class, 'getJson'])->name('admin.media-library.json');
     Route::post('/media-library/upload', [MediaLibraryController::class, 'upload']);
     Route::post('/media-library/delete', [MediaLibraryController::class, 'delete']);
 
@@ -100,12 +105,76 @@ Route::prefix('admin')->group(function () {
     Route::post('/menu-builder/save', [MenuBuilderController::class, 'save']);
     Route::get('/content-manager', [ContentManagerController::class, 'index'])->name('admin.content-manager');
     Route::post('/content-manager/update-visibility', [ContentManagerController::class, 'updateSectionVisibility']);
+
+    // Theme Manager Routes
+    Route::get('/theme-manager', [ThemeController::class, 'index'])->name('admin.themes');
+    Route::get('/theme-manager/create', [ThemeController::class, 'create'])->name('admin.themes.create');
+    Route::post('/theme-manager', [ThemeController::class, 'store'])->name('admin.themes.store');
+    Route::get('/theme-manager/edit/{slug}', [ThemeController::class, 'edit'])->name('admin.themes.edit');
+    Route::post('/theme-manager/update/{slug}', [ThemeController::class, 'update'])->name('admin.themes.update');
+    Route::post('/theme-manager/activate/{slug}', [ThemeController::class, 'activate'])->name('admin.themes.activate');
+    Route::post('/theme-manager/assets/{slug}', [ThemeController::class, 'updateAssets'])->name('admin.themes.assets');
+    Route::delete('/theme-manager/{slug}', [ThemeController::class, 'destroy'])->name('admin.themes.destroy');
+    Route::get('/theme-manager/preview/{slug}', [ThemeController::class, 'preview'])->name('admin.themes.preview');
+
+    // Activity Log Routes
+    Route::get('/activity-log', [ActivityLogController::class, 'index'])->name('admin.activity-log');
+    Route::get('/activity-log/{id}', [ActivityLogController::class, 'show'])->name('admin.activity-log.show');
+    Route::post('/activity-log/{id}/revert', [ActivityLogController::class, 'revert'])->name('admin.activity-log.revert');
+    Route::post('/activity-log/revert-last', [ActivityLogController::class, 'revertLast'])->name('admin.activity-log.revert-last');
+    Route::post('/activity-log/cleanup', [ActivityLogController::class, 'cleanup'])->name('admin.activity-log.cleanup');
+
+    // Cache Clear Route
+    Route::post('/cache/clear', [ActivityLogController::class, 'clearCache'])->name('admin.cache.clear');
+
+    // Page Builder Routes
+    Route::get('/page-builder', [PageBuilderController::class, 'index'])->name('admin.page-builder.index');
+    Route::get('/page-builder/create', [PageBuilderController::class, 'create'])->name('admin.page-builder.create');
+    Route::post('/page-builder', [PageBuilderController::class, 'store'])->name('admin.page-builder.store');
+
+    // Page Builder Section Routes (must come BEFORE {slug} catch-all routes)
+    Route::post('/page-builder/{slug}/sections/add', [PageBuilderController::class, 'addSection'])
+        ->name('admin.page-builder.sections.add')
+        ->where('slug', '[a-z0-9\-]+');
+    Route::post('/page-builder/{slug}/sections/reorder', [PageBuilderController::class, 'reorderSections'])
+        ->name('admin.page-builder.sections.reorder')
+        ->where('slug', '[a-z0-9\-]+');
+    Route::post('/page-builder/{slug}/sections', [PageBuilderController::class, 'saveSections'])
+        ->name('admin.page-builder.sections.save')
+        ->where('slug', '[a-z0-9\-]+');
+    Route::match(['put', 'patch', 'post'], '/page-builder/{slug}/sections/{sectionId}', [PageBuilderController::class, 'updateSection'])
+        ->name('admin.page-builder.sections.update')
+        ->where(['slug' => '[a-z0-9\-]+', 'sectionId' => '[a-z0-9\-]+']);
+    Route::delete('/page-builder/{slug}/sections/{sectionId}', [PageBuilderController::class, 'deleteSection'])
+        ->name('admin.page-builder.sections.delete')
+        ->where(['slug' => '[a-z0-9\-]+', 'sectionId' => '[a-z0-9\-]+']);
+    Route::get('/page-builder/{slug}/sections/{sectionId}/editor', [PageBuilderController::class, 'getSectionEditor'])
+        ->name('admin.page-builder.sections.editor')
+        ->where(['slug' => '[a-z0-9\-]+', 'sectionId' => '[a-z0-9\-]+']);
+
+    // Page Builder Page Routes (after section routes)
+    // Use where() constraint to ensure slug doesn't contain slashes
+    Route::get('/page-builder/{slug}/edit', [PageBuilderController::class, 'edit'])
+        ->name('admin.page-builder.edit')
+        ->where('slug', '[a-z0-9\-]+');
+    Route::post('/page-builder/{slug}/duplicate', [PageBuilderController::class, 'duplicate'])
+        ->name('admin.page-builder.duplicate')
+        ->where('slug', '[a-z0-9\-]+');
+    Route::match(['put', 'patch'], '/page-builder/{slug}', [PageBuilderController::class, 'update'])
+        ->name('admin.page-builder.update')
+        ->where('slug', '[a-z0-9\-]+');
+    Route::delete('/page-builder/{slug}', [PageBuilderController::class, 'destroy'])
+        ->name('admin.page-builder.destroy')
+        ->where('slug', '[a-z0-9\-]+');
 });
 
 Route::middleware(['page.status'])->group(function () {
 
-Route::get('/', [HomeController::class, 'homeV1']);
-Route::get('/home', [HomeController::class, 'homeV1']);
+// Dynamic home - uses active theme's home_version
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index']);
+
+// Direct version routes (for preview/testing)
 Route::get('/home-v1', [HomeController::class, 'homeV1']);
 Route::get('/home-v2', [HomeController::class, 'homeV2']);
 Route::get('/home-v3', [HomeController::class, 'homeV3']);
@@ -171,6 +240,9 @@ Route::get('/consultation', [ConsultationController::class, 'index'])->name('con
 Route::get('/credit-transfer', [CreditTransferController::class, 'index'])->name('credit-transfer');
 Route::get('/scholarships', [ScholarshipsController::class, 'index'])->name('scholarships');
 Route::get('/financial-aid', [FinancialAidController::class, 'index'])->name('financial-aid');
+
+// Custom Pages (Page Builder) - MUST be last to avoid conflicts with other routes
+Route::get('/{slug}', [CustomPageController::class, 'show'])->name('custom-page.show')->where('slug', '[a-z0-9\-]+');
 
 });
 

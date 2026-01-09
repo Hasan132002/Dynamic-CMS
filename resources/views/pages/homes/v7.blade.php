@@ -6,8 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="ThemeDox">
 
+  @php
+      $seoGlobal = $seo['global'] ?? [];
+      $pageTitle = $page_title ?? ($page_meta['title'] ?? 'Home');
+      $titleSuffix = $seoGlobal['title_suffix'] ?? '';
+      $fullTitle = $titleSuffix ? "{$pageTitle} {$titleSuffix}" : $pageTitle;
+  @endphp
+
   <link rel="icon" href="{{ asset('assets/img/favicon.png') }}">
-  <title>Online Education Platform</title>
+  <title>{{ $fullTitle }}</title>
+
+  {{-- SEO META TAGS --}}
+  @include('partials.global-asset.global-seo')
 
   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}">
@@ -18,12 +28,21 @@
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
    {{-- GLOBAL STYLES (fonts, colors, etc.) --}}
    @include('partials.global-style')
+
+    {{-- THEME CSS --}}
+    @if(isset($theme['css']) && file_exists(public_path('assets/css/themes/' . $theme['css'])))
+        <link rel="stylesheet" href="{{ asset('assets/css/themes/' . $theme['css']) }}">
+    @endif
 </head>
 
-<body class="td_theme_2">
+<body class="td_theme_2 theme-{{ $theme['slug'] ?? 'default' }}">
 
-  {{-- HEADER --}}
-  @include('partials.headers.header-v7')
+  {{-- DYNAMIC HEADER --}}
+  @php
+      $headerVersion = $theme['header_version'] ?? 'header-v7';
+      $headerPartial = 'partials.headers.' . $headerVersion;
+  @endphp
+  @include($headerPartial)
 
   {{-- PRELOADER --}}
   <div class="td_preloader">
@@ -66,8 +85,12 @@
     @include('partials.sections.home-v7.blog')
 @endif
 
-  {{-- FOOTER --}}
-  @include('partials.footers.footer-v7')
+  {{-- DYNAMIC FOOTER --}}
+  @php
+      $footerVersion = $theme['footer_version'] ?? 'footer-v7';
+      $footerPartial = 'partials.footers.' . $footerVersion;
+  @endphp
+  @include($footerPartial)
 
   <div class="td_scrollup">
     <i class="fa-solid fa-arrow-up"></i>

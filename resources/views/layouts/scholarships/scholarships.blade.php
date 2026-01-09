@@ -14,12 +14,26 @@
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     @include('partials.global-style')
+    {{-- THEME CSS --}}
+    @if(isset($theme['css']) && file_exists(public_path('assets/css/themes/' . $theme['css'])))
+        <link rel="stylesheet" href="{{ asset('assets/css/themes/' . $theme['css']) }}">
+    @endif
   </head>
-  <body>
-    @include('partials.headers.header-v3')
+  <body class="theme-{{ $theme['slug'] ?? 'default' }}">
+    {{-- DYNAMIC HEADER --}}
+    @php
+        $headerVersion = $theme['header_version'] ?? 'header-v3';
+        $headerPartial = 'partials.headers.' . $headerVersion;
+    @endphp
+    @include($headerPartial)
     <div class="td_preloader"><div class="td_preloader_in"><span></span><span></span></div></div>
     @yield('content')
-    @include('partials.footers.footer-v1')
+    {{-- DYNAMIC FOOTER --}}
+    @php
+        $footerVersion = $theme['footer_version'] ?? 'footer-v1';
+        $footerPartial = 'partials.footers.' . $footerVersion;
+    @endphp
+    @include($footerPartial)
     <div class="td_scrollup"><i class="fa-solid fa-arrow-up"></i></div>
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.slick.min.js') }}"></script>

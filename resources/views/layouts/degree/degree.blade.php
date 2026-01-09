@@ -22,10 +22,19 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     {{-- GLOBAL STYLES (fonts, colors, etc.) --}}
     @include('partials.global-style')
+    {{-- THEME CSS --}}
+    @if(isset($theme['css']) && file_exists(public_path('assets/css/themes/' . $theme['css'])))
+        <link rel="stylesheet" href="{{ asset('assets/css/themes/' . $theme['css']) }}">
+    @endif
   </head>
-  <body>
+  <body class="theme-{{ $theme['slug'] ?? 'default' }}">
 
-    @include('partials.headers.header-v3')
+    {{-- DYNAMIC HEADER --}}
+    @php
+        $headerVersion = $theme['header_version'] ?? 'header-v3';
+        $headerPartial = 'partials.headers.' . $headerVersion;
+    @endphp
+    @include($headerPartial)
 
     <!-- Start Preloader -->
     <div class="td_preloader">
@@ -38,7 +47,12 @@
 
     @yield('content')
 
-    @include('partials.footers.footer-v1')
+    {{-- DYNAMIC FOOTER --}}
+    @php
+        $footerVersion = $theme['footer_version'] ?? 'footer-v1';
+        $footerPartial = 'partials.footers.' . $footerVersion;
+    @endphp
+    @include($footerPartial)
 
     <!-- Start Scroll Up Button -->
     <div class="td_scrollup">

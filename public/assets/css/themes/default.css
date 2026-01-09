@@ -1,0 +1,16 @@
+/* ========================================
+   Default Theme - Educve Portal
+   ======================================== */
+
+/* Theme Variables (Scoped to theme) */
+.theme-default {
+  --theme-primary: #ff5d05;
+  --theme-secondary: #000000;
+  --theme-accent: #121212;
+  --theme-bg: #ffffff;
+  --theme-text: #000000;
+  --theme-text-light: #666666;
+}
+
+/* Default theme doesn't need additional overrides
+   as it matches the base styles */

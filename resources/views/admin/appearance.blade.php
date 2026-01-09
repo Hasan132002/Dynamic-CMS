@@ -404,6 +404,25 @@
         <p>Customize your website's look and feel</p>
     </div>
 
+    <!-- Active Theme Info -->
+    @if(isset($activeTheme))
+    <div class="alert" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; margin-bottom: 25px; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h5 style="margin: 0 0 5px 0; font-weight: 600;"><i class="fas fa-palette me-2"></i>Active Theme: {{ $activeTheme['name'] ?? 'Default' }}</h5>
+                <p style="margin: 0; opacity: 0.9; font-size: 14px;">
+                    Home: {{ $activeTheme['home_version'] ?? 'home-v1' }} |
+                    Header: {{ $activeTheme['header_version'] ?? 'header-v1' }} |
+                    Footer: {{ $activeTheme['footer_version'] ?? 'footer-v1' }}
+                </p>
+            </div>
+            <a href="/admin/theme-manager" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 6px; text-decoration: none;">
+                <i class="fas fa-swatchbook me-2"></i>Manage Themes
+            </a>
+        </div>
+    </div>
+    @endif
+
     <!-- Success/Error Messages -->
     @if(session('success'))
         <div class="alert alert-success">

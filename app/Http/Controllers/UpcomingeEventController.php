@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class UpcomingEventController extends BasePageController
+class UpcomingeEventController extends BasePageController
 {
     public function index()
     {

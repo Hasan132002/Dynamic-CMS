@@ -15,6 +15,24 @@ class MediaLibraryController extends Controller
         return view('admin.media-library', compact('media'));
     }
 
+    /**
+     * Return media files as JSON for AJAX requests
+     */
+    public function getJson()
+    {
+        $media = $this->getMediaFiles();
+
+        // Filter only image files for the page builder
+        $images = array_filter($media, function($item) {
+            return in_array($item['type'], ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp']);
+        });
+
+        return response()->json([
+            'success' => true,
+            'media' => array_values($images)
+        ]);
+    }
+
     public function upload(Request $request)
     {
         $request->validate([

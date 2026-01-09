@@ -6,13 +6,25 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="ThemeDox">
+
+    @php
+        $seoGlobal = $seo['global'] ?? [];
+        $pageTitle = $page_title ?? ($page_meta['title'] ?? 'Home');
+        $titleSuffix = $seoGlobal['title_suffix'] ?? '';
+        $fullTitle = $titleSuffix ? "{$pageTitle} {$titleSuffix}" : $pageTitle;
+    @endphp
+
     <!-- Favicon Icon -->
-    <link rel="icon" href="assets/img/favicon.png">
+    <link rel="icon" href="{{ asset('assets/img/favicon.png') }}">
     <!-- Site Title -->
-    <title> Online Education Platform</title>
+    <title>{{ $fullTitle }}</title>
+
+    {{-- SEO META TAGS --}}
+    @include('partials.global-asset.global-seo')
+
     @include('partials.global-style')
-    
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/css/slick.min.css">
@@ -21,10 +33,19 @@
     <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
      {{-- GLOBAL STYLES (fonts, colors, etc.) --}}
-    
+
+    {{-- THEME CSS --}}
+    @if(isset($theme['css']) && file_exists(public_path('assets/css/themes/' . $theme['css'])))
+        <link rel="stylesheet" href="{{ asset('assets/css/themes/' . $theme['css']) }}">
+    @endif
   </head>
-  <body class="td_theme_2">
-        @include('partials.headers.header-v1')
+  <body class="td_theme_2 theme-{{ $theme['slug'] ?? 'default' }}">
+    {{-- DYNAMIC HEADER --}}
+    @php
+        $headerVersion = $theme['header_version'] ?? 'header-v1';
+        $headerPartial = 'partials.headers.' . $headerVersion;
+    @endphp
+    @include($headerPartial)
 
     <!-- Start Preloader -->
     <div class="td_preloader">
@@ -77,7 +98,12 @@
 @endif
 
 
-@include('partials.footers.footer-v1')
+{{-- DYNAMIC FOOTER --}}
+@php
+    $footerVersion = $theme['footer_version'] ?? 'footer-v1';
+    $footerPartial = 'partials.footers.' . $footerVersion;
+@endphp
+@include($footerPartial)
 
     <div class="td_scrollup">
       <i class="fa-solid fa-arrow-up"></i>

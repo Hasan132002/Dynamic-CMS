@@ -77,6 +77,17 @@ html:root {
   --hover-translate-y-lg: {{ $colors['hover']['translate_y_lg'] ?? 'translateY(-5px)' }};
   --hover-scale: {{ $colors['hover']['scale'] ?? 'scale(1.05)' }};
   --hover-scale-sm: {{ $colors['hover']['scale_sm'] ?? 'scale(1.1)' }};
+
+  /* Header & Footer Theme Colors */
+  --header-bg-color: {{ $themeAssets['colors']['header_bg'] ?? '#ffffff' }};
+  --header-text-color: {{ $themeAssets['colors']['header_text'] ?? '#000000' }};
+  --footer-bg-color: {{ $themeAssets['colors']['footer_bg'] ?? '#1a1a2e' }};
+  --footer-text-color: {{ $themeAssets['colors']['footer_text'] ?? '#ffffff' }};
+
+  /* Theme Primary Colors */
+  --theme-primary-color: {{ $themeAssets['colors']['primary'] ?? '#007bff' }};
+  --theme-secondary-color: {{ $themeAssets['colors']['secondary'] ?? '#6c757d' }};
+  --theme-accent-color: {{ $themeAssets['colors']['accent'] ?? '#17a2b8' }};
 }
 
 @foreach(($colors['themes'] ?? []) as $themeClass => $theme)
@@ -86,4 +97,115 @@ html.{{ $themeClass }} {
   @endisset
 }
 @endforeach
+
+/* Header Styling from Theme */
+.td_site_header,
+.td_site_header.td_style_1,
+.td_site_header .td_main_header {
+  background-color: var(--header-bg-color) !important;
+}
+
+.td_site_header .td_nav_list > li > a,
+.td_site_header .td_main_header_left a,
+.td_site_header .td_main_header_right a,
+.td_site_header .td_hamburger_btn {
+  color: var(--header-text-color) !important;
+}
+
+/* Footer Styling from Theme - Background */
+/* Override theme-specific footer backgrounds */
+body .td_footer,
+body .td_footer.td_style_1,
+body .td_footer.td_style_2,
+body .td_footer.td_style_3,
+body .td_footer.td_color_1,
+body .td_footer.td_color_2,
+body .td_footer.td_color_3,
+body .td_footer.td_type_1,
+body .td_footer.td_type_2,
+body .td_footer.td_hobble,
+body footer.td_footer,
+.theme-modern .td_footer,
+.theme-default .td_footer,
+[class*="theme-"] .td_footer,
+body[class*="theme-"] .td_footer,
+body[class*="theme-"] footer.td_footer {
+  background: var(--footer-bg-color) !important;
+  background-color: var(--footer-bg-color) !important;
+}
+
+body .td_footer .td_footer_bottom,
+body .td_footer.td_style_1 .td_footer_bottom,
+body footer.td_footer .td_footer_bottom,
+[class*="theme-"] .td_footer .td_footer_bottom {
+  background: var(--footer-bg-color) !important;
+  background-color: var(--footer-bg-color) !important;
+  border-top-color: rgba(255,255,255,0.1) !important;
+}
+
+/* Footer Styling from Theme - Text Colors */
+body .td_footer,
+body .td_footer *,
+body .td_footer p,
+body .td_footer a,
+body .td_footer span,
+body .td_footer li,
+body .td_footer ul,
+body .td_footer div,
+body .td_footer h1,
+body .td_footer h2,
+body .td_footer h3,
+body .td_footer h4,
+body .td_footer h5,
+body .td_footer h6,
+body .td_footer .td_footer_widget,
+body .td_footer .td_footer_widget_title,
+body .td_footer .td_footer_text_widget,
+body .td_footer .td_footer_text_widget p,
+body .td_footer .td_footer_widget_menu,
+body .td_footer .td_footer_widget_menu li,
+body .td_footer .td_footer_widget_menu li a,
+body .td_footer .td_footer_address_widget,
+body .td_footer .td_footer_address_widget li,
+body .td_footer .td_footer_address_widget li a,
+body .td_footer .td_footer_address_widget li i,
+body .td_footer .td_copyright,
+body .td_footer .td_footer_bottom,
+body .td_footer .td_footer_bottom p,
+body .td_footer .td_footer_bottom a,
+body .td_footer .td_footer_bottom_in,
+body .td_footer .td_footer_bottom_in p,
+body .td_footer .td_footer_bottom_in a,
+body .td_footer .td_footer_social_btns,
+body .td_footer .td_footer_social_btns a,
+body .td_footer .td_footer_social_btns a i,
+body .td_footer .td_white_color,
+body .td_footer .td_medium,
+body .td_footer .td_fs_18,
+body .td_footer .td_fs_32,
+body .td_footer .td_mb_20,
+body .td_footer .td_mb_30,
+body .td_footer .td_opacity_7,
+body .td_footer .td_newsletter,
+body .td_footer .td_newsletter p,
+body .td_footer .td_footer_row,
+body .td_footer .td_footer_col,
+[class*="theme-"] .td_footer,
+[class*="theme-"] .td_footer *,
+[class*="theme-"] .td_footer p,
+[class*="theme-"] .td_footer a,
+[class*="theme-"] .td_footer h2,
+[class*="theme-"] .td_footer .td_footer_widget_title,
+[class*="theme-"] .td_footer .td_footer_widget_menu li a {
+  color: var(--footer-text-color) !important;
+}
+
+/* Footer Links Hover */
+body .td_footer a:hover,
+body .td_footer .td_footer_widget_menu li a:hover,
+body .td_footer .td_footer_address_widget li a:hover,
+body .td_footer .td_footer_bottom a:hover,
+[class*="theme-"] .td_footer a:hover {
+  color: var(--theme-accent-color) !important;
+}
 </style>

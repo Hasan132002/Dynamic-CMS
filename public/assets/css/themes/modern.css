@@ -1,0 +1,55 @@
+/* ========================================
+   Modern Theme - Educve Portal
+   ======================================== */
+
+/* Theme Variables (Scoped to theme) */
+.theme-modern {
+  --theme-primary: #667eea;
+  --theme-secondary: #764ba2;
+  --theme-accent: #f093fb;
+  --theme-bg: #ffffff;
+  --theme-text: #2d3748;
+  --theme-text-light: #718096;
+}
+
+/* Typography overrides for modern theme */
+.theme-modern h1,
+.theme-modern h2,
+.theme-modern h3,
+.theme-modern h4,
+.theme-modern h5,
+.theme-modern h6 {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Primary buttons */
+.theme-modern .td_btn {
+  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%);
+  border: none;
+}
+
+.theme-modern .td_btn:hover {
+  background: linear-gradient(135deg, var(--theme-secondary) 0%, var(--theme-primary) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Hero section gradient overlay */
+.theme-modern .td_hero_area {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+}
+
+/* Card hover effects */
+.theme-modern .td_card:hover {
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+}
+
+/* Link colors */
+.theme-modern a:hover {
+  color: var(--theme-primary);
+}
+
+/* Footer background */
+.theme-modern .td_footer {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}

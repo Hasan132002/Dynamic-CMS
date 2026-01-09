@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\ThemeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -16,6 +17,10 @@ class GlobalThemeController extends Controller
      */
     public function index()
     {
+        // Get active theme info
+        $themeService = app(ThemeService::class);
+        $activeTheme = $themeService->getActiveTheme();
+
         $data = [
             'colors' => $this->loadJson('global-colors.json'),
             'fonts' => $this->loadJson('global-fonts.json'),
@@ -24,7 +29,7 @@ class GlobalThemeController extends Controller
             'text' => $this->loadJson('global-text.json'),
         ];
 
-        return view('admin.appearance', compact('data'));
+        return view('admin.appearance', compact('data', 'activeTheme'));
     }
 
     /**

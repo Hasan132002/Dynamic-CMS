@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\ActivityLogService;
 use Illuminate\Http\Request;
 
 class SeoController extends Controller
@@ -22,6 +23,8 @@ class SeoController extends Controller
 
     public function update(Request $request)
     {
+        $oldSeo = $this->loadSeo();
+
         $seo = [
             'global' => [
                 'title_suffix' => $request->input('title_suffix', ''),
@@ -44,6 +47,9 @@ class SeoController extends Controller
         ];
 
         $this->saveSeo($seo);
+
+        // Log SEO update
+        ActivityLogService::logSeoUpdate($oldSeo, $seo);
 
         return redirect()->back()->with('success', 'SEO settings saved successfully!');
     }

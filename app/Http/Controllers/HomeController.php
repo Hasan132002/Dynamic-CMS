@@ -3,9 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+use App\Services\ThemeService;
 
 class HomeController extends BasePageController
 {
+    protected ThemeService $themeService;
+
+    public function __construct()
+    {
+        $this->themeService = new ThemeService();
+    }
+
+    /**
+     * Dynamic home page - renders based on active theme's home_version
+     */
+    public function index()
+    {
+        $theme = $this->themeService->getActiveTheme();
+        $homeVersion = $theme['home_version'] ?? 'home-v1';
+
+        // Extract version number (e.g., "home-v4" -> "4")
+        $versionNumber = str_replace('home-v', '', $homeVersion);
+
+        // Build view and JSON paths
+        $view = 'pages.homes.v' . $versionNumber;
+        $jsonPath = 'content/home-v' . $versionNumber . '.json';
+
+        return $this->buildView($view, $jsonPath);
+    }
+
     protected function mapHeaderV1Menus(array $globalHeader): array
     {
         $header = [];
@@ -135,7 +161,19 @@ class HomeController extends BasePageController
             $content['footer']['subscribe']['socials'] = $content['footer']['about']['socials'];
         }
 
-        return view($view, array_merge($content, $globals, ['globalContact' => $globalContact]));
+        // Extract theme data from globals (ensure it's passed to view)
+        $theme = $globals['theme'] ?? [];
+        $themeVersions = $globals['themeVersions'] ?? [];
+        $themeAssets = $globals['themeAssets'] ?? [];
+        $seo = $globals['seo'] ?? [];
+
+        return view($view, array_merge($content, $globals, [
+            'globalContact' => $globalContact,
+            'theme' => $theme,
+            'themeVersions' => $themeVersions,
+            'themeAssets' => $themeAssets,
+            'seo' => $seo,
+        ]));
     }
 
     public function homeV1() { return $this->buildView('pages.homes.v1', 'content/home-v1.json'); }

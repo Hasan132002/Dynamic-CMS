@@ -23,8 +23,12 @@
 
 <body>
 
-{{-- HEADER --}}
-@include('partials.headers.header-v3')
+{{-- DYNAMIC HEADER --}}
+@php
+    $headerVersion = $theme['header_version'] ?? 'header-v3';
+    $headerPartial = 'partials.headers.' . $headerVersion;
+@endphp
+@include($headerPartial)
 
 {{-- PRELOADER --}}
 <div class="td_preloader">
@@ -43,8 +47,12 @@
 @endif
 
 
-{{-- FOOTER --}}
-@include('partials.footers.footer-v1')
+{{-- DYNAMIC FOOTER --}}
+@php
+    $footerVersion = $theme['footer_version'] ?? 'footer-v1';
+    $footerPartial = 'partials.footers.' . $footerVersion;
+@endphp
+@include($footerPartial)
 
 <div class="td_scrollup">
   <i class="fa-solid fa-arrow-up"></i>

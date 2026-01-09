@@ -94,6 +94,10 @@ class FinancialAidController extends BasePageController
             'footer' => $footer,
             'globalContact' => $globalContact,
             'page' => $pageData,
+            // Theme data for dynamic header/footer
+            'theme' => $globals['theme'] ?? [],
+            'themeVersions' => $globals['themeVersions'] ?? [],
+            'themeAssets' => $globals['themeAssets'] ?? [],
         ]);
     }
 }
